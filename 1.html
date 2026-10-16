@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python for Data Analytics (NumPy & Pandas) — Interactive Roadmap & Mind Map</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.78);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+
+        .node-line {
+            stroke-dasharray: 6 4;
+            animation: dashMove 18s linear infinite;
+        }
+
+        @keyframes dashMove {
+            to {
+                stroke-dashoffset: -120;
+            }
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.6);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <!-- Top Header Banner -->
+        <header class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl border border-indigo-500/20">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div class="space-y-1.5">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase">
+                        <span>🎓 Programming NotebookLM Visualization</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                        Python for Data Analytics: <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-emerald-400">NumPy
+                            &amp; Pandas Roadmap</span>
+                    </h1>
+                    <p class="text-sm text-slate-300 max-w-3xl">
+                        <a href="https://gemini.google.com/notebook/7ee9cc1f-3f74-4eb3-8712-9d018bdf0ac8"
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-cyan-400 hover:underline font-medium">Programming</a> notebookidagi video
+                        darslar (Keith Galli, Alex The Analyst, Bro Code, Luke Barousse), rasmiy hujjatlar hamda
+                        <em>Fluent Python</em> va <em>Jake VanderPlas</em> kitoblari konteksti asosida Junior → Senior
+                        o'quv xaritasi.
+                    </p>
+                </div>
+
+                <!-- Overall Progress Pill -->
+                <div
+                    class="bg-slate-900/80 border border-slate-700/80 rounded-xl p-4 min-w-[240px] flex flex-col justify-between gap-2">
+                    <div class="flex items-center justify-between text-xs font-medium text-slate-300">
+                        <span>O'zlashtirish ko'rsatkichi</span>
+                        <span id="overallProgressText" class="text-emerald-400 font-bold">0 / 24 modul (0%)</span>
+                    </div>
+                    <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div id="overallProgressBar"
+                            class="h-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-500 transition-all duration-300"
+                            style="width: 0%"></div>
+                    </div>
+                    <div class="flex items-center justify-between pt-1">
+                        <span class="text-[11px] text-slate-400">200 ta amaliy masala + 12 kurs</span>
+                        <button id="resetProgressBtn" type="button"
+                            class="text-[11px] text-rose-400 hover:text-rose-300 font-medium underline">Tozalash</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation & Filter Bar -->
+            <div class="mt-5 pt-4 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                <!-- View Switcher -->
+                <div class="inline-flex rounded-xl bg-slate-900/90 p-1 border border-slate-700/70">
+                    <button type="button" data-view="mindmap"
+                        class="view-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-indigo-600 text-white shadow">
+                        🧠 Interaktiv Mind Map
+                    </button>
+                    <button type="button" data-view="roadmap"
+                        class="view-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-300 hover:text-white">
+                        🗺️ Bosqichma-Bosqich Roadmap
+                    </button>
+                    <button type="button" data-view="context"
+                        class="view-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-300 hover:text-white">
+                        🔬 Notebook Konteksti &amp; Taqqoslash
+                    </button>
+                </div>
+
+                <!-- Track Filter -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs text-slate-400 font-medium">Yo'nalish filtri:</span>
+                    <button type="button" data-track="all"
+                        class="track-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-700 text-white border border-slate-500">
+                        Barchasi
+                    </button>
+                    <button type="button" data-track="numpy"
+                        class="track-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900/70 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-950/50">
+                        🔢 NumPy
+                    </button>
+                    <button type="button" data-track="pandas"
+                        class="track-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900/70 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-950/50">
+                        🐼 Pandas
+                    </button>
+                    <button type="button" data-track="core"
+                        class="track-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900/70 text-amber-300 border border-amber-500/30 hover:bg-amber-950/50">
+                        ⚙️ Core &amp; Big Data
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- VIEW 1: INTERACTIVE NOTEBOOKLM-STYLE MIND MAP -->
+        <section id="view-mindmap" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Left 7 Cols: Interactive Visual Tree -->
+                <div class="lg:col-span-7 glass-card rounded-2xl p-5 border border-slate-700/70 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                                <span>NotebookLM Mind Map Vizualizatsiyasi</span>
+                            </h2>
+                            <p class="text-xs text-slate-400">Daraja tugunini bosing — o'ng panelda uning chuqur
+                                konteksti, kod sirlari va video darslari ochiladi.</p>
+                        </div>
+                        <span
+                            class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">4
+                            Bosqich • 16 Hafta</span>
+                    </div>
+
+                    <!-- Mind Map Visual Flow -->
+                    <div id="mindmapTreeContainer" class="space-y-4 pt-1"></div>
+                </div>
+
+                <!-- Right 5 Cols: Active Node Deep-Dive Inspector -->
+                <div
+                    class="lg:col-span-5 glass-card rounded-2xl p-5 border border-indigo-500/30 sticky top-6 space-y-4">
+                    <div id="nodeInspector"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: STEP-BY-STEP KANBAN / CHECKLIST ROADMAP -->
+        <section id="view-roadmap" class="hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="roadmapGrid"></div>
+        </section>
+
+        <!-- VIEW 3: DEEP CONTEXT & BENCHMARK INSIGHTS FROM NOTEBOOK -->
+        <section id="view-context" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Why NumPy is Faster than Lists -->
+                <div class="glass-card rounded-2xl p-5 border border-cyan-500/30 space-y-3">
+                    <div
+                        class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-cyan-500/15 text-cyan-300 text-xs font-bold">
+                        🔢 Keith Galli &amp; Fluent Python Konteksti
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Nima uchun NumPy oddiy Python Listdan 50–500x tez?</h3>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-cyan-400 font-bold">1.</span>
+                            <span><strong>Fixed Data Types:</strong> Python list har bir element turini ishlash vaqtida
+                                tekshiradi (dynamic type checking). NumPy esa yagona qat'iy tur (masalan,
+                                <code>int32</code> yoki <code>float64</code>) saqlaydi.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-cyan-400 font-bold">2.</span>
+                            <span><strong>Contiguous Memory:</strong> List elementlari RAMda tarqoq pointerlar orqali
+                                bog'lanadi; NumPy <code>ndarray</code> esa xotirada uzluksiz ketma-ket bloklarda
+                                joylashadi (CPU Cache locality).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-cyan-400 font-bold">3.</span>
+                            <span><strong>SIMD Vectorization &amp; GIL:</strong> NumPy C/Fortran kodlari Python
+                                <strong>GIL (Global Interpreter Lock)</strong> ni bo'shatadi va protsessorning SIMD
+                                vektor registrlarida barcha elementlarni parallel hisoblaydi.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Drew Conway Data Science Venn Diagram -->
+                <div class="glass-card rounded-2xl p-5 border border-indigo-500/30 space-y-3">
+                    <div
+                        class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300 text-xs font-bold">
+                        📘 Jake VanderPlas Qo'llanmasi Konteksti
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Drew Conway Data Science Venn Diagrammasi</h3>
+                    <p class="text-xs sm:text-sm text-slate-300">
+                        Notebookdagi <em>Jake VanderPlas Python Qo'llanmasi</em> manbasiga ko'ra, haqiqiy Data Science
+                        va analitika 3 ta soha kesishmasidir:
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-700">
+                            <span class="font-bold text-cyan-300">💻 Hacking Skills:</span> Python, NumPy massivlari,
+                            Pandas jadvallari va algoritmik qayta ishlash.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-700">
+                            <span class="font-bold text-emerald-300">📐 Math &amp; Statistics:</span> Ma'lumotlarni
+                            modellashtirish, taqsimotlar, korrelyatsiya va gipotezalarni tekshirish.
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-700">
+                            <span class="font-bold text-amber-300">🏢 Substantive Expertise:</span> Biznes yoki soha
+                            bilimi (to'g'ri savol qo'yish; statistika bo'lmasa — <em>"Danger Zone!"</em>).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Split-Apply-Combine & Memoryview -->
+                <div class="glass-card rounded-2xl p-5 border border-emerald-500/30 space-y-3">
+                    <div
+                        class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 text-xs font-bold">
+                        🐼 Pandas Docs &amp; Senior Scaling Konteksti
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Split-Apply-Combine va Zero-Copy Xotira</h3>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span><strong>Split-Apply-Combine:</strong> Pandas <code>groupby()</code> ma'lumotni mezon
+                                bo'yicha ajratadi (Split), har bir guruhga funksiya qo'llaydi (Apply) va yangi jadvalga
+                                birlashtiradi (Combine).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span><strong>Copy-on-Write &amp; Memoryview:</strong> <em>Fluent Python</em> (Travis
+                                Oliphant iqtibosi) va Pandas 3.0 hujjatlarida ko'rsatilganidek, <code>memoryview</code>
+                                va PyArrow katta jadvallarni baytlardan nusxa ko'chirmasdan (zero-copy) ulashadi.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span><strong>Dask Parallelization:</strong> Bitta kompyuter RAMiga sig'maydigan datasetlar
+                                <strong>Dask</strong> yordamida klasterlar bo'ylab parallel Pandas/NumPy bloklariga
+                                bo'linadi.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Speed Simulator / Comparison Table -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-700/80 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">⚡ Amaliy Tezlik va Arxitektura Taqqosovi
+                            (Luke Barousse &amp; Fluent Python tajribalari asosida)</h3>
+                        <p class="text-xs text-slate-400">10 million elementli massiv ustida hisob-kitob va xotira
+                            samaradorligi:</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto custom-scroll">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-slate-300 bg-slate-900/60">
+                                <th class="py-3 px-4 font-semibold">Daraja va Yondashuv</th>
+                                <th class="py-3 px-4 font-semibold">Xotira Tuzilmasi</th>
+                                <th class="py-3 px-4 font-semibold">CPU va GIL Holati</th>
+                                <th class="py-3 px-4 font-semibold text-right">Nisbiy Tezlik (10M element)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-200">
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-medium text-rose-300">Oddiy Python <code>list</code> +
+                                    <code>for</code> sikli
+                                </td>
+                                <td class="py-3 px-4">Tarqoq pointerlar + har elementda PyObject overhead</td>
+                                <td class="py-3 px-4">1 ta oqim, GIL band, dynamic type check</td>
+                                <td class="py-3 px-4 text-right font-mono text-rose-400">~5,000 ms (1x bazaviy)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-medium text-cyan-300">Junior/Intermediate: NumPy Vectorized
+                                    (<code>np.mean</code> / <code>ufunc</code>)</td>
+                                <td class="py-3 px-4">Contiguous C buffer (masalan, <code>float64</code>)</td>
+                                <td class="py-3 px-4">SIMD vektorlashgan C sikli, GIL bo'shatiladi</td>
+                                <td class="py-3 px-4 text-right font-mono text-cyan-400">~15–35 ms (150x–500x tez)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-medium text-emerald-300">Pro: Pandas 3.0 + PyArrow Backend +
+                                    Copy-on-Write</td>
+                                <td class="py-3 px-4">Columnar Arrow buffer, zero-copy slicing</td>
+                                <td class="py-3 px-4">Ko'p oqimli C++ hisoblash va tezkor String/Parquet I/O</td>
+                                <td class="py-3 px-4 text-right font-mono text-emerald-400">RAM 50%+ tejaladi, I/O 10x
+                                    tez</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-medium text-amber-300">Senior: Dask / Numba JIT /
+                                    <code>memoryview</code>
+                                </td>
+                                <td class="py-3 px-4">Shared-memory zero-copy &amp; tarqatilgan bloklar</td>
+                                <td class="py-3 px-4">Barcha CPU yadrolari va klaster mashinalarda parallel</td>
+                                <td class="py-3 px-4 text-right font-mono text-amber-400">100GB+ Big Data masshtabi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const ROADMAP_DATA = [
+            {
+                id: 'junior',
+                level: '1-BOSQICH: JUNIOR',
+                subtitle: 'Massiv va Jadval Asoslari (Foundation)',
+                duration: '1–4-haftalar',
+                badgeColor: 'from-cyan-500 to-blue-600',
+                borderColor: 'border-cyan-500/40',
+                textColor: 'text-cyan-300',
+                summary: 'Python asoslaridan (Analyst Builder) NumPy N-o\'lchovli massivlari va Pandas Series/DataFrame jadvallariga o\'tish. Massiv yaratish, fayl o\'qish va indekslashni avtomatizm darajasiga chiqarish.',
+                contextHighlight: 'Keith Galli NumPy darsidan: Python list har bir elementning tipini alohida tekshiradi va xotirada tarqoq joylashadi. NumPy esa "fixed type" va "contiguous memory" ishlatgani uchun CPU SIMD vektor bloki va kesh xotiradan foydalanib o\'nlab barobar tez ishlaydi.',
+                codeSnippet: `import numpy as np\nimport pandas as pd\n\n# NumPy: Contiguous fixed-type 2D array\narr = np.arange(1, 13, dtype=np.int32).reshape(3, 4)\nprint("Shape:", arr.shape, "Memory bytes:", arr.nbytes)\n\n# Pandas: DataFrame va loc / iloc tanlash\ndf = pd.DataFrame(arr, index=['A', 'B', 'C'], columns=['Q1', 'Q2', 'Q3', 'Q4'])\nprint(df.loc[['A', 'C'], ['Q1', 'Q4']])`,
+                modules: [
+                    {
+                        id: 'jr-core-1',
+                        track: 'core',
+                        title: 'Python Foundation: O\'zgaruvchilar, Sikllar va Funksiyalar',
+                        sourceTitle: 'Analyst Builder — Python Programming for Beginners',
+                        sourceUrl: 'https://analystbuilder.com/courses/python-programming-for-beginners',
+                        details: 'List, Tuple, Dictionary, funksiyalar va mantiqiy operatorlarni mustahkamlash.'
+                    },
+                    {
+                        id: 'jr-np-1',
+                        track: 'numpy',
+                        title: 'NumPy 1D/2D/3D Massivlar (ndarray), Shape, Dtype va Slicing',
+                        sourceTitle: 'Bro Code — Learn NumPy in 1 Hour (2025)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=VXU4LSAQDSc',
+                        details: 'np.array(), zeros(), ones(), arange(), linspace(), element-wise arifmetika va 1D/2D kesmalar.'
+                    },
+                    {
+                        id: 'jr-np-2',
+                        track: 'numpy',
+                        title: 'Rasmiy Qo\'llanma: NumPy Absolute Basics for Beginners',
+                        sourceTitle: 'NumPy Official Docs — Absolute Beginners',
+                        sourceUrl: 'https://numpy.org/doc/stable/user/absolute_beginners.html',
+                        details: 'Massiv cheklovlari (rectangular shape, homogeneous type), min/max/sum/mean va axis tushunchasi.'
+                    },
+                    {
+                        id: 'jr-pd-1',
+                        track: 'pandas',
+                        title: 'Pandas Series va DataFrame Asoslari (1 soatlik tezkor kurs)',
+                        sourceTitle: 'Bro Code — Learn Pandas in 1 Hour (2025)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=VXtjG_GzO7Q',
+                        details: 'Series va DataFrame yaratish, CSV/JSON yuklash, loc/iloc indekslash va oddiy shartli filtrlash.'
+                    },
+                    {
+                        id: 'jr-pd-2',
+                        track: 'pandas',
+                        title: '10 Minutes to Pandas va Stack Overflow Dataset Tahlili',
+                        sourceTitle: '10 Minutes to Pandas + Corey Schafer Part 1',
+                        sourceUrl: 'https://pandas.pydata.org/docs/user_guide/10min.html',
+                        details: 'head(), tail(), info(), describe(), value_counts() va real so\'rovnoma jadvalini ko\'zdan kechirish.'
+                    },
+                    {
+                        id: 'jr-prac-1',
+                        track: 'numpy',
+                        title: 'Amaliyot: 100 NumPy & 100 Pandas Problems (1–25-masalalar)',
+                        sourceTitle: 'Keith Galli — 100 NumPy & 100 Pandas Problems',
+                        sourceUrl: 'https://www.youtube.com/watch?v=PM504XhEVCU',
+                        details: 'Har ikkala to\'plamdagi dastlabki 25 tadan (jami 50 ta) 1-yulduzli boshlang\'ich masalalarni mustaqil ishlash.'
+                    }
+                ]
+            },
+            {
+                id: 'intermediate',
+                level: '2-BOSQICH: INTERMEDIATE',
+                subtitle: 'Data Cleaning, Wrangling va EDA',
+                duration: '5–8-haftalar',
+                badgeColor: 'from-emerald-500 to-teal-600',
+                borderColor: 'border-emerald-500/40',
+                textColor: 'text-emerald-300',
+                summary: 'Real loyihalardagi "iflos" ma\'lumotlarni tozalash (Data Cleaning), ustunlarni standartlashtirish, jadvallarni birlashtirish (merge/concat), guruhlash (groupby) va kashfiyot tahlili (EDA).',
+                contextHighlight: 'Alex The Analyst darslaridan: Haqiqiy datasetlarda dublikatlar, noto\'g\'ri formatdagi telefon raqamlar va NaN qiymatlar bo\'ladi. Ularni str.replace(regex=True), str.strip(), dropna/fillna va split-apply-combine (groupby) yordamida tahlilga tayyorlash — Intermediate analitikning asosiy quroli.',
+                codeSnippet: `# Alex The Analyst & Keith Galli uslubida Data Cleaning + GroupBy\ndf = df.drop_duplicates()\ndf['phone'] = df['phone'].astype(str).str.replace(r'[^0-9]', '', regex=True)\n\n# Split-Apply-Combine (GroupBy + Agg)\nsummary = (\n    df.groupby('department', as_index=False)\n      .agg(avg_salary=('salary', 'mean'), headcount=('emp_id', 'count'))\n      .sort_values(by='avg_salary', ascending=False)\n)`,
+                modules: [
+                    {
+                        id: 'int-np-1',
+                        track: 'numpy',
+                        title: 'Ko\'p o\'lchovli Indekslash ("Work Outside-In"), Broadcasting va Linear Algebra',
+                        sourceTitle: 'Keith Galli — Complete Python NumPy Tutorial',
+                        sourceUrl: 'https://www.youtube.com/watch?v=GB9ByFAIAH4',
+                        details: '3D massivlarda tashqaridan ichkariga indekslash, boolean masking, vstack/hstack, np.linalg va np.genfromtxt.'
+                    },
+                    {
+                        id: 'int-np-2',
+                        track: 'numpy',
+                        title: 'Massivlarda Vektorlashgan Hisob-kitoblar va Matritsa Operatsiyalari',
+                        sourceTitle: 'freeCodeCamp — Numerical Computing with NumPy',
+                        sourceUrl: 'https://www.youtube.com/watch?v=NlZXAytUeeE',
+                        details: 'Broadcasting qoidalari, matritsa ko\'paytmasi (@ / np.dot) va CSV iqlim ma\'lumotlarini massivda qayta ishlash.'
+                    },
+                    {
+                        id: 'int-pd-1',
+                        track: 'pandas',
+                        title: 'Real Ma\'lumotlarni Tozalash: Customer Call List Loyihasi',
+                        sourceTitle: 'Alex The Analyst — Data Cleaning in Pandas',
+                        sourceUrl: 'https://www.youtube.com/watch?v=bDhvCp3_lYw',
+                        details: 'Dublikatlarni o\'chirish, str.strip(), regex bilan formatlash, manzil ustunini split qilish va bo\'sh qatorlarni tozalash.'
+                    },
+                    {
+                        id: 'int-pd-2',
+                        track: 'pandas',
+                        title: 'Exploratory Data Analysis (EDA): Korrelyatsiya, GroupBy va Vizualizatsiya',
+                        sourceTitle: 'Alex The Analyst — Exploratory Data Analysis in Pandas',
+                        sourceUrl: 'https://www.youtube.com/watch?v=Liv6eeb1VfE',
+                        details: 'Dunyo aholisi datasetida isnull().sum(), corr() heatmap, groupby() va outlierlarni boxplot orqali aniqlash.'
+                    },
+                    {
+                        id: 'int-pd-3',
+                        track: 'pandas',
+                        title: 'Zamonaviy Pandas (2025 Updated): Merge, Join, Pivot Table va Apply',
+                        sourceTitle: 'Keith Galli — Complete Python Pandas Tutorial (2025)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=2uvysYbKdjM',
+                        details: 'query(), str/dt accessorlar, lambda + apply(), merge/concat va pivot_table() bilan jadvallarni shakllantirish.'
+                    },
+                    {
+                        id: 'int-prac-1',
+                        track: 'pandas',
+                        title: 'Amaliyot: 100 NumPy & 100 Pandas Problems (26–60-masalalar)',
+                        sourceTitle: 'Keith Galli — 100 Pandas Problems (26–60)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=i7v2m-ebXB4',
+                        details: 'O\'rta qiyinlikdagi (**) 35 ta NumPy va 35 ta Pandas masalasini (pivot, groupby, datetime64) yechish.'
+                    }
+                ]
+            },
+            {
+                id: 'pro',
+                level: '3-BOSQICH: PRO',
+                subtitle: 'Murakkab Analitika, Time Series va Portfolio Loyiha',
+                duration: '9–12-haftalar',
+                badgeColor: 'from-indigo-500 to-purple-600',
+                borderColor: 'border-indigo-500/40',
+                textColor: 'text-indigo-300',
+                summary: 'Murakkab vaqt qatorlari (Time Series), MultiIndex, Window funksiyalar (rolling/expanding), ufuncs va real mehnat bozori ma\'lumotlari asosida End-to-End GitHub portfolio loyiha qurish.',
+                contextHighlight: 'Luke Barousse kursidan: 10 millionta elementning medianasini topishda standart Python statistics kutubxonasi 5 soniya vaqt oladi, NumPy/Pandas esa millisekundlarda bajaradi. Pro darajada Drew Conway Venn diagrammasidagi (Jake VanderPlas) 3 ko\'nikma — Dasturlash, Statistika va Biznes tahlil birlashadi.',
+                codeSnippet: `# Pro Pandas: MultiIndex, Time Series Resampling & Rolling Window\ndf['job_posted_date'] = pd.to_datetime(df['job_posted_date'])\ndf = df.set_index('job_posted_date').sort_index()\n\nmonthly_trends = (\n    df.resample('ME')['salary_year_avg']\n      .agg(['count', 'median'])\n      .assign(rolling_3m_median=lambda x: x['median'].rolling(3).mean())\n)`,
+                modules: [
+                    {
+                        id: 'pro-np-1',
+                        track: 'numpy',
+                        title: 'NumPy Ufuncs, Fancy Indexing, Structured Arrays va Einsum',
+                        sourceTitle: 'Programming Notebook — Jake VanderPlas Python Qo\'llanmasi',
+                        sourceUrl: 'https://gemini.google.com/notebook/7ee9cc1f-3f74-4eb3-8712-9d018bdf0ac8',
+                        details: 'Python Data Science Handbook asosida universal funksiyalar, argsort/partition va Drew Conway Data Science modeli.'
+                    },
+                    {
+                        id: 'pro-pd-1',
+                        track: 'pandas',
+                        title: 'End-to-End Portfolio Loyiha: Python for Data Analytics (11+ soat)',
+                        sourceTitle: 'Luke Barousse — Python for Data Analytics Full Course',
+                        sourceUrl: 'https://www.youtube.com/watch?v=wUSDVGivd-8',
+                        details: 'Data Analyst vakansiyalari va maoshlarini kompleks tahlil qilish, Matplotlib/Seaborn va GitHubda loyiha e\'lon qilish.'
+                    },
+                    {
+                        id: 'pro-pd-2',
+                        track: 'pandas',
+                        title: 'Advanced Pandas: MultiIndex, Windowing (Rolling) va Time Series',
+                        sourceTitle: 'Pandas User Guide — Advanced & Time Series',
+                        sourceUrl: 'https://pandas.pydata.org/docs/user_guide/10min.html',
+                        details: 'MultiIndex (stack/unstack), rolling()/expanding(), resample(), timedeltas va Parquet/PyArrow formatlari.'
+                    },
+                    {
+                        id: 'pro-core-1',
+                        track: 'core',
+                        title: 'Kompleks Data Analysis va Vizual Hisobotlar',
+                        sourceTitle: 'freeCodeCamp — Data Analysis with Python Course',
+                        sourceUrl: 'https://www.youtube.com/watch?v=GPVsHOlRBBI',
+                        details: 'Jupyter Notebookda to\'liq analitik sikl: ma\'lumot yig\'ish, tozalash, statistik tahlil va vizual xulosalar.'
+                    },
+                    {
+                        id: 'pro-prac-1',
+                        track: 'numpy',
+                        title: 'Amaliyot: 100 NumPy Problems (61–85-masalalar, ***)',
+                        sourceTitle: 'Keith Galli — 100 NumPy Problems (Advanced)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=PM504XhEVCU',
+                        details: '3-yulduzli murakkab NumPy masalalari: sliding window, stride_tricks, einsum va matritsa normalizatsiyasi.'
+                    },
+                    {
+                        id: 'pro-prac-2',
+                        track: 'pandas',
+                        title: 'Amaliyot: 100 Pandas Problems (61–85-masalalar, ***)',
+                        sourceTitle: 'Keith Galli — 100 Pandas Problems (Advanced)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=i7v2m-ebXB4',
+                        details: 'Ko\'p qavatli indekslar (MultiIndex), vaqt qatorlari va murakkab guruhlash masalalari.'
+                    }
+                ]
+            },
+            {
+                id: 'senior',
+                level: '4-BOSQICH: SENIOR',
+                subtitle: 'Xotira Arxitekturasi, Parallelizm va Big Data Scaling',
+                duration: '13–16-haftalar',
+                badgeColor: 'from-amber-500 to-orange-600',
+                borderColor: 'border-amber-500/40',
+                textColor: 'text-amber-300',
+                summary: 'CPython ichki mexanizmlari (Buffer Protocol, memoryview, GIL), 500x vektorizatsiya, Dask yordamida klasterlarda parallel hisoblash, Big-O algoritmik optimizatsiya va Clean Code production pipeline.',
+                contextHighlight: 'Fluent Python (Luciano Ramalho) kontekstidan: memoryview baytlardan nusxa ko\'chirmasdan (zero-copy) massiv kesmalarini ulashadi. NumPy/SciPy C-funksiyalari GIL (Global Interpreter Lock) ni bo\'shatib, barcha CPU yadrolarini ishlatadi; Dask esa Pandas va NumPy ni klasterlar bo\'ylab parallel taqsimlaydi.',
+                codeSnippet: `# Senior Optimization: Zero-copy memoryview & PyArrow / Categorical RAM scaling\nimport numpy as np\nimport pandas as pd\n\n# 1. Zero-copy shared memory view (Fluent Python Ch. 2)\nraw_arr = np.arange(1_000_000, dtype=np.int64)\nmv = memoryview(raw_arr)  # Nusxa ko'chirmasdan xotirani ulashish\n\n# 2. Pandas Copy-on-Write & PyArrow / Categorical optimizatsiyasi\npd.options.mode.copy_on_write = True\ndf['country'] = df['country'].astype('category')  # RAM sarfini ~80% qisqartiradi`,
+                modules: [
+                    {
+                        id: 'sr-np-1',
+                        track: 'numpy',
+                        title: 'Buffer Protocol, Memoryview (Zero-Copy) va 500x Vectorization Speedup',
+                        sourceTitle: 'Programming Notebook — Fluent Python (Ch. 2 & Ch. 12)',
+                        sourceUrl: 'https://gemini.google.com/notebook/7ee9cc1f-3f74-4eb3-8712-9d018bdf0ac8',
+                        details: 'Travis Oliphant memoryview arxitekturasi, Nicolas Rougier From Python to NumPy 500x tezlashtirish usullari.'
+                    },
+                    {
+                        id: 'sr-core-1',
+                        track: 'core',
+                        title: 'Python in the Multicore World: GIL ni Bo\'shatish va Dask Klasterlari',
+                        sourceTitle: 'Programming Notebook — Fluent Python (Ch. 19, 725-bet)',
+                        sourceUrl: 'https://gemini.google.com/notebook/7ee9cc1f-3f74-4eb3-8712-9d018bdf0ac8',
+                        details: 'CPython GIL ishlash mexanizmi, C/Fortran syscalls da GIL bo\'shatilishi hamda Dask bilan parallel Pandas/NumPy.'
+                    },
+                    {
+                        id: 'sr-pd-1',
+                        track: 'pandas',
+                        title: 'Scaling to Large Datasets: PyArrow, Copy-on-Write, Categorical & Numba',
+                        sourceTitle: 'Pandas Docs — Enhancing Performance & Scaling',
+                        sourceUrl: 'https://pandas.pydata.org/docs/user_guide/10min.html',
+                        details: 'Copy-on-Write (CoW), Nullable/PyArrow dtypes, Sparse tuzilmalar va Cython/Numba JIT kompilatsiyasi.'
+                    },
+                    {
+                        id: 'sr-core-2',
+                        track: 'core',
+                        title: 'Asimptotik Murakkablik (Big-O) va Clean Code Production Pipeline',
+                        sourceTitle: 'MIT Lecture 22 (Big Oh) + Clean Code & Grokking Algorithms',
+                        sourceUrl: 'https://www.youtube.com/watch?v=xAcTmDO6NTI',
+                        details: 'O(N) vs O(N^2) bottleneck tahlili, OOP, xatoliklarni to\'liq tutish (complete error handling) va memory leak oldini olish.'
+                    },
+                    {
+                        id: 'sr-prac-1',
+                        track: 'numpy',
+                        title: 'Amaliyot: 100 NumPy Problems (86–100-masalalar, **** Ekspert)',
+                        sourceTitle: 'Keith Galli — 100 NumPy Problems (86–100)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=PM504XhEVCU',
+                        details: '4-yulduzli ekspert masalalar: Conway Game of Life vektorizatsiyasi, bootstrapping va tensor amallari.'
+                    },
+                    {
+                        id: 'sr-prac-2',
+                        track: 'pandas',
+                        title: 'Amaliyot: 100 Pandas Problems (86–100-masalalar, **** Ekspert)',
+                        sourceTitle: 'Keith Galli — 100 Pandas Problems (86–100)',
+                        sourceUrl: 'https://www.youtube.com/watch?v=i7v2m-ebXB4',
+                        details: 'Yakuniy 15 ta eng murakkab Pandas muammolarini optimal va vektorlashgan usulda yechish.'
+                    }
+                ]
+            }
+        ];
+
+        // State management
+        let activeView = 'mindmap';
+        let activeTrack = 'all';
+        let selectedStageId = 'junior';
+        let completedModules = {};
+
+        try {
+            const saved = localStorage.getItem('py_da_roadmap_completed_v1');
+            if (saved) completedModules = JSON.parse(saved);
+        } catch (e) {
+            completedModules = {};
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('py_da_roadmap_completed_v1', JSON.stringify(completedModules));
+            } catch (e) { }
+        }
+
+        function getTrackBadge(track) {
+            if (track === 'numpy') {
+                return '<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">🔢 NumPy</span>';
+            }
+            if (track === 'pandas') {
+                return '<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">🐼 Pandas</span>';
+            }
+            return '<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">⚙️ Core &amp; Scaling</span>';
+        }
+
+        function updateOverallProgress() {
+            const total = ROADMAP_DATA.reduce((acc, s) => acc + s.modules.length, 0);
+            const done = Object.values(completedModules).filter(Boolean).length;
+            const pct = total ? Math.round((done / total) * 100) : 0;
+            const textEl = document.getElementById('overallProgressText');
+            const barEl = document.getElementById('overallProgressBar');
+            if (textEl) textEl.textContent = `${done} / ${total} modul (${pct}%)`;
+            if (barEl) barEl.style.width = `${pct}%`;
+        }
+
+        function renderMindMapTree() {
+            const container = document.getElementById('mindmapTreeContainer');
+            if (!container) return;
+
+            container.innerHTML = ROADMAP_DATA.map((stage, idx) => {
+                const filteredModules = stage.modules.filter(m => activeTrack === 'all' || m.track === activeTrack);
+                const doneCount = stage.modules.filter(m => completedModules[m.id]).length;
+                const isSelected = stage.id === selectedStageId;
+
+                return `
+          <div class="relative">
+            ${idx < ROADMAP_DATA.length - 1 ? '<div class="absolute left-6 top-14 bottom-[-20px] w-0.5 bg-gradient-to-b from-indigo-500/60 to-slate-700"></div>' : ''}
+            <div class="rounded-xl p-4 transition-all cursor-pointer border ${isSelected ? 'bg-slate-800/95 border-indigo-400 shadow-lg shadow-indigo-500/10' : 'bg-slate-900/70 border-slate-700/80 hover:border-slate-500'}" data-stage-select="${stage.id}">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-gradient-to-br ${stage.badgeColor} flex items-center justify-center font-extrabold text-white text-sm shadow">
+                    ${idx + 1}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-extrabold tracking-wider uppercase ${stage.textColor}">${stage.level}</span>
+                      <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">${stage.duration}</span>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-bold text-white">${stage.subtitle}</h3>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-300 border border-slate-800">
+                    ✅ ${doneCount}/${stage.modules.length}
+                  </span>
+                  <span class="text-xs text-indigo-300 font-semibold">${isSelected ? 'Tanlangan ▶' : 'Ko\'rish'}</span>
+                </div>
+              </div>
+
+              <!-- Branching Child Nodes -->
+              <div class="mt-3 pl-4 sm:pl-8 border-l-2 border-slate-700/80 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                ${filteredModules.map(mod => {
+                    const isDone = !!completedModules[mod.id];
+                    return `
+                    <div class="p-2.5 rounded-lg bg-slate-950/75 border ${isDone ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-slate-800'} flex items-start justify-between gap-2">
+                      <div class="space-y-1 min-w-0">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          ${getTrackBadge(mod.track)}
+                        </div>
+                        <p class="text-xs font-medium ${isDone ? 'line-through text-slate-400' : 'text-slate-200'} leading-snug">${mod.title}</p>
+                      </div>
+                      <button type="button" data-toggle-mod="${mod.id}" class="shrink-0 mt-0.5 w-5 h-5 rounded border ${isDone ? 'bg-emerald-500 border-emerald-400 text-slate-950' : 'border-slate-600 text-transparent hover:border-slate-400'} flex items-center justify-center text-xs font-bold" title="Bajarildi deb belgilash">
+                        ✓
+                      </button>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+            }).join('');
+
+            container.querySelectorAll('[data-stage-select]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target.closest('[data-toggle-mod]')) return;
+                    selectedStageId = el.getAttribute('data-stage-select');
+                    renderAll();
+                });
+            });
+
+            container.querySelectorAll('[data-toggle-mod]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const modId = btn.getAttribute('data-toggle-mod');
+                    completedModules[modId] = !completedModules[modId];
+                    saveState();
+                    renderAll();
+                });
+            });
+        }
+
+        function renderNodeInspector() {
+            const inspector = document.getElementById('nodeInspector');
+            if (!inspector) return;
+            const stage = ROADMAP_DATA.find(s => s.id === selectedStageId) || ROADMAP_DATA[0];
+            const filteredModules = stage.modules.filter(m => activeTrack === 'all' || m.track === activeTrack);
+
+            inspector.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+          <div>
+            <span class="text-xs font-extrabold uppercase ${stage.textColor}">${stage.level} • ${stage.duration}</span>
+            <h3 class="text-lg font-bold text-white">${stage.subtitle}</h3>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${stage.summary}</p>
+
+        <div class="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>💡 NotebookLM Manbalaridan Asosiy Kontekst:</span>
+          </div>
+          <p class="text-xs text-slate-200 leading-relaxed">${stage.contextHighlight}</p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-xs font-bold text-slate-300 uppercase tracking-wider">Biriktirilgan Kurs va Manbalar (${filteredModules.length} ta):</div>
+          <div class="space-y-2 max-h-64 overflow-y-auto custom-scroll pr-1">
+            ${filteredModules.map(mod => {
+                const isDone = !!completedModules[mod.id];
+                return `
+                <div class="p-3 rounded-xl bg-slate-900/90 border ${isDone ? 'border-emerald-500/40' : 'border-slate-800'} space-y-1.5">
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="space-y-1">
+                      ${getTrackBadge(mod.track)}
+                      <h4 class="text-xs sm:text-sm font-semibold text-white">${mod.title}</h4>
+                    </div>
+                    <button type="button" data-inspector-toggle="${mod.id}" class="px-2 py-1 rounded text-[11px] font-semibold ${isDone ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+                      ${isDone ? '✓ Bajarildi' : 'Belgilash'}
+                    </button>
+                  </div>
+                  <p class="text-xs text-slate-400">${mod.details}</p>
+                  <div class="pt-1">
+                    <a href="${mod.sourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300 hover:underline">
+                      <span>🔗 ${mod.sourceTitle}</span>
+                      <span>↗</span>
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Namuna Kod (Daraja darajasida):</span>
+            <button type="button" id="copyCodeBtn" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Nusxalash</button>
+          </div>
+          <pre class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-emerald-300 font-mono overflow-x-auto custom-scroll"><code>${stage.codeSnippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+        </div>
+      `;
+
+            inspector.querySelectorAll('[data-inspector-toggle]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modId = btn.getAttribute('data-inspector-toggle');
+                    completedModules[modId] = !completedModules[modId];
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            const copyBtn = document.getElementById('copyCodeBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', () => {
+                    const ta = document.createElement('textarea');
+                    ta.value = stage.codeSnippet;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        copyBtn.textContent = '✓ Nusxalandi!';
+                        setTimeout(() => { copyBtn.textContent = 'Nusxalash'; }, 1500);
+                    } catch (err) { }
+                    document.body.removeChild(ta);
+                });
+            }
+        }
+
+        function renderRoadmapGrid() {
+            const grid = document.getElementById('roadmapGrid');
+            if (!grid) return;
+
+            grid.innerHTML = ROADMAP_DATA.map((stage, idx) => {
+                const filteredModules = stage.modules.filter(m => activeTrack === 'all' || m.track === activeTrack);
+                const doneCount = stage.modules.filter(m => completedModules[m.id]).length;
+                const pct = Math.round((doneCount / stage.modules.length) * 100);
+
+                return `
+          <div class="glass-card rounded-2xl p-5 border ${stage.borderColor} flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-gradient-to-r ${stage.badgeColor} text-white shadow">
+                  ${stage.level} (${stage.duration})
+                </span>
+                <span class="text-xs font-bold text-slate-300">${doneCount}/${stage.modules.length} (${pct}%)</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">${stage.subtitle}</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">${stage.summary}</p>
+
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300">
+                <strong class="${stage.textColor}">Kontekst:</strong> ${stage.contextHighlight}
+              </div>
+
+              <div class="space-y-2 pt-2">
+                ${filteredModules.map(mod => {
+                    const isDone = !!completedModules[mod.id];
+                    return `
+                    <div class="p-3 rounded-xl bg-slate-950/80 border ${isDone ? 'border-emerald-500/40' : 'border-slate-800'} flex items-start gap-3">
+                      <button type="button" data-grid-toggle="${mod.id}" class="mt-0.5 w-5 h-5 rounded border shrink-0 ${isDone ? 'bg-emerald-500 border-emerald-400 text-slate-950' : 'border-slate-600 text-transparent hover:border-slate-400'} flex items-center justify-center text-xs font-bold">
+                        ✓
+                      </button>
+                      <div class="space-y-1 min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          ${getTrackBadge(mod.track)}
+                          <span class="text-xs font-semibold ${isDone ? 'line-through text-slate-400' : 'text-white'}">${mod.title}</span>
+                        </div>
+                        <p class="text-xs text-slate-400">${mod.details}</p>
+                        <a href="${mod.sourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-cyan-400 hover:underline pt-0.5">
+                          🔗 ${mod.sourceTitle} ↗
+                        </a>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+            }).join('');
+
+            grid.querySelectorAll('[data-grid-toggle]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modId = btn.getAttribute('data-grid-toggle');
+                    completedModules[modId] = !completedModules[modId];
+                    saveState();
+                    renderAll();
+                });
+            });
+        }
+
+        function renderAll() {
+            updateOverallProgress();
+            renderMindMapTree();
+            renderNodeInspector();
+            renderRoadmapGrid();
+        }
+
+        // Event Listeners for Tabs & Track Filters
+        document.querySelectorAll('.view-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                activeView = tab.getAttribute('data-view');
+                document.querySelectorAll('.view-tab').forEach(t => {
+                    if (t.getAttribute('data-view') === activeView) {
+                        t.className = 'view-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-indigo-600 text-white shadow';
+                    } else {
+                        t.className = 'view-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-300 hover:text-white';
+                    }
+                });
+                document.getElementById('view-mindmap').classList.toggle('hidden', activeView !== 'mindmap');
+                document.getElementById('view-roadmap').classList.toggle('hidden', activeView !== 'roadmap');
+                document.getElementById('view-context').classList.toggle('hidden', activeView !== 'context');
+            });
+        });
+
+        document.querySelectorAll('.track-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeTrack = btn.getAttribute('data-track');
+                document.querySelectorAll('.track-btn').forEach(b => {
+                    if (b.getAttribute('data-track') === activeTrack) {
+                        b.classList.add('ring-2', 'ring-indigo-400', 'bg-slate-700', 'text-white');
+                    } else {
+                        b.classList.remove('ring-2', 'ring-indigo-400', 'bg-slate-700', 'text-white');
+                    }
+                });
+                renderAll();
+            });
+        });
+
+        document.getElementById('resetProgressBtn').addEventListener('click', () => {
+            completedModules = {};
+            saveState();
+            renderAll();
+        });
+
+        window.addEventListener('DOMContentLoaded', renderAll);
+        renderAll();
+    </script>
+</body>
+
+</html>
